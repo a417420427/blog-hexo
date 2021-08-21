@@ -124,98 +124,48 @@
     </div>
 </header>
         <main class="main">
-            
-<section class="posts">
+            <article class="post">
     
-        <article class="post">
-            
-                <h4 class="post-cat">
-                    <a href="/categories/webpack/">
-                        webpack
-                    </a>
-                </h4>
-                
-                    <h1 class="post-title">
-                        <a href="/2021/08/21/webpackCompilation/">
-                            webpack构建流程
-                        </a>
-                    </h1>
+    
+    
+    <h2 class="post-title">
+        input method editors (IMEs) 输入法输入文字问题
+    </h2>
+    <ul class="post-date">
+        <li>
+            2021-08-21
+        </li>
+        <li>
+            zhangfan
+        </li>
+    </ul>
+    <div class="post-content">
+        <p>使用输入法时(Input Method Editors/IME)<br>在 safari 浏览器上与在 chrome/firefox 浏览器上有不同的表现<br>导致 keydown 事件触发出问题</p>
+<h1 id="问题及复现步骤"><a href="#问题及复现步骤" class="headerlink" title="问题及复现步骤"></a>问题及复现步骤</h1><iframe height="265" style="width: 100%;" scrolling="no" title="ZEeVyKP" src="https://codepen.io/a417420427/embed/ZEeVyKP?height=265&theme-id=light&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a target="_blank" rel="noopener" href='https://codepen.io/a417420427/pen/ZEeVyKP'>ZEeVyKP</a> by a417420427
+  (<a target="_blank" rel="noopener" href='https://codepen.io/a417420427'>@a417420427</a>) on <a target="_blank" rel="noopener" href='https://codepen.io'>CodePen</a>.
+</iframe>
 
-                    <ul class="post-date">
-                        <li>
-                            August 21, 2021
-                        </li>
-                        <li>
-                            zhangfan
-                        </li>
-                    </ul>
-                    
-                    <div class="post-content ">
-                        
-                            <a href="/2021/08/21/webpackCompilation/" class="more-link">继续阅读</a>
-                    </div>
-        </article>
-        
-        <article class="post">
-            
-                <h4 class="post-cat">
-                    <a href="/categories/webpack/">
-                        webpack
-                    </a>
-                </h4>
-                
-                    <h1 class="post-title">
-                        <a href="/2021/08/21/webpackBuild/">
-                            webpack搭建
-                        </a>
-                    </h1>
+<p>分辩在不同浏览器上观察事件触发时间可以看出</p>
+<ul>
+<li>在 chrome/firefox 上用户完成非英文输入按下 Enter 键确定输入结果时，先触发了 keydown 事件，然后才触发 compositionend 事件(相隔 0-1ms，应该是一个微任务)</li>
+<li>在 safari 上进行同样的操作 会先触发了 compositionend 事件，然后才触发 keydown 事件(相隔 5ms 左右)</li>
+</ul>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><ul>
+<li>监听与 keydown 事件相同容器的 compositionend 事件，记录下时间 compositionEndedAt</li>
+<li>在 keydown 事件触发时，查看 isComposing 属性以及在 safari 上判断 keydown 与 compositionEndedAt 的时间差</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">CompositionManager</span> </span>&#123;</span><br><span class="line">  private compositionEndedAt = -<span class="number">2e8</span></span><br><span class="line"></span><br><span class="line">  isComposing(event: KeyboardEvent): boolean &#123;</span><br><span class="line">    <span class="comment">/** isComposing 表示正在输入中 */</span></span><br><span class="line">    <span class="keyword">if</span> (event.isComposing) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment">/** 只针对safari判断事件 */</span></span><br><span class="line">    <span class="keyword">if</span> (getBrowserName() === <span class="string">&#x27;Safari&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> isComposing =</span><br><span class="line">        <span class="built_in">Math</span>.abs(event.timeStamp - <span class="built_in">this</span>.compositionEndedAt) &lt; <span class="number">500</span></span><br><span class="line">      <span class="built_in">this</span>.compositionEndedAt = -<span class="number">2e8</span></span><br><span class="line">      <span class="keyword">return</span> isComposing</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">container: HTMLElement</span>)</span> &#123;</span><br><span class="line">    container.addEventListener(<span class="string">&#x27;compositionend&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.compositionEndedAt = e.timeStamp</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-                    <ul class="post-date">
-                        <li>
-                            August 21, 2021
-                        </li>
-                        <li>
-                            zhangfan
-                        </li>
-                    </ul>
-                    
-                    <div class="post-content ">
-                        
-                            <a href="/2021/08/21/webpackBuild/" class="more-link">继续阅读</a>
-                    </div>
-        </article>
-        
-        <article class="post">
-            
-                <h4 class="post-cat">
-                    <a href="/categories/webpack/">
-                        webpack
-                    </a>
-                </h4>
-                
-                    <h1 class="post-title">
-                        <a href="/2021/08/21/webpackBase/">
-                            webpack 基础
-                        </a>
-                    </h1>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/uievents/#keys-IME">https://www.w3.org/TR/uievents/#keys-IME</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/w3c/uievents/issues/202">https://github.com/w3c/uievents/issues/202</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ProseMirror/prosemirror-view/blob/b5420e17f2486e1633a2c06c0a6b25a60b276c5f/src/input.js#L389">https://github.com/ProseMirror/prosemirror-view/blob/b5420e17f2486e1633a2c06c0a6b25a60b276c5f/src/input.js#L389</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing">https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing</a></li>
+</ul>
 
-                    <ul class="post-date">
-                        <li>
-                            August 21, 2021
-                        </li>
-                        <li>
-                            zhangfan
-                        </li>
-                    </ul>
-                    
-                    <div class="post-content ">
-                        
-                            <a href="/2021/08/21/webpackBase/" class="more-link">继续阅读</a>
-                    </div>
-        </article>
-        
-</section>
-
+    </div>
+</article>
         </main>
         <aside class="aside">
             <div class="close"></div>
