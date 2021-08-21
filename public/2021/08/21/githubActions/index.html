@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="keywords" content="hexo, autumn" />
+    <title>
+        一苇的博客
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="avatar.jpeg" />
+     
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" />
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@2.0.0/dist/main.js"></script>
+
+    <script>
+        infiniteScroll()
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const [
+                mainTitle,
+                mobileMenu,
+                mobileMainTitle,
+                mobileMenuBtn,
+                ipadMenuBtn,
+                aside,
+                closeBtn,
+            ] = getEle(
+                '#main-title',
+                '.mobile-menu',
+                '.mobile-menu h3',
+                '.mobile-menu button',
+                '.ipad-menu',
+                'aside',
+                'aside .close',
+            )
+            const io = new IntersectionObserver(entries => {
+                if (entries[0].intersectionRatio <= 0) {
+                    mobileMainTitle.classList.remove('invisibile')
+                } else {
+                    mobileMainTitle.classList.add('invisibile')
+                }
+            })
+            io.observe(mainTitle)
+
+            clickToggleAside(mobileMenuBtn)
+            clickToggleAside(ipadMenuBtn)
+            clickToggleAside(closeBtn, false)
+
+            const isMenuVisible = window.getComputedStyle(mobileMenu).display !== 'none'
+            if (isMenuVisible) document.body.style.background = 'none'
+
+            function getEle(...args) {
+                return args.map(arg => document.querySelector(arg))
+            }
+
+            function clickToggleAside(btn, show = true) {
+                btn.addEventListener('click', function () {
+                    if (show) {
+                        aside.style.display = 'block'
+                    } else {
+                        aside.style.display = 'none'
+                    }
+                })
+            }
+        })
+    </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+    <div class="container">
+        <header class="header">
+    <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <h3 class="invisibile">
+            <a href="/" class="logo">
+                一苇的博客
+            </a>
+        </h3>
+        <button class="menu">menu</button>
+    </nav>
+
+    <button class="ipad-menu menu">menu</button>
+
+    <h1 class="title" id="main-title">
+        <a href="/" class="logo">
+            一苇的博客
+        </a>
+    </h1>
+    <h2 class="desc">
+        记录点滴
+    </h2>
+
+    <div class="links">
+        <ul>
+            
+            <li>
+                <a target="_blank" rel="noopener" href="https://github.com/a417420427">
+                    Github
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</header>
+        <main class="main">
+            <article class="post">
+    
+    
+    <h4 class="post-cat">
+        <a href="/categories/git/">
+            git
+        </a>
+    </h4>
+    
+    
+    <h2 class="post-title">
+        利用 github actions 进行自动部署
+    </h2>
+    <ul class="post-date">
+        <li>
+            2021-08-21
+        </li>
+        <li>
+            zhangfan
+        </li>
+    </ul>
+    <div class="post-content">
+        <!--
+  name: 利用github actions进行自动部署
+  description: GitHub Actions 帮助您自动完成软件开发周期内的任务。 GitHub Actions 是事件驱动的，意味着您可以在指定事件发生后运行一系列命令。 例如，每次有人为仓库创建拉取请求时，您都可以自动运行命令来执行软件测试脚本。
+-->
+
+<p>概述： GitHub Actions 帮助您自动完成软件开发周期内的任务。 GitHub Actions 是事件驱动的，意味着您可以在指定事件发生后运行一系列命令。 例如，每次有人为仓库创建拉取请求时，您都可以自动运行命令来执行软件测试脚本。</p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><ol>
+<li><p>创建项目/使用已有的 github 项目</p>
+</li>
+<li><p>找到 action tap， 选择 new workflow</p>
+</li>
+<li><p>选择一个需要创建的 workflow 类型(这里我直接使用的 Deno， 如果只需要使用 webpack 也可以选择 webpack)</p>
+</li>
+<li><p>然后他会给你一个模板</p>
+</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This workflow uses actions that are not certified by GitHub.</span></span><br><span class="line"><span class="comment"># They are provided by a third-party and are governed by</span></span><br><span class="line"><span class="comment"># separate terms of service, privacy policy, and support</span></span><br><span class="line"><span class="comment"># documentation.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># This workflow will install Deno then run Deno lint and test.</span></span><br><span class="line"><span class="comment"># For more information see: https://github.com/denoland/setup-deno</span></span><br><span class="line"></span><br><span class="line"><span class="attr">name:</span> <span class="string">Deno</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="comment">#  action 执行时间</span></span><br><span class="line">  <span class="comment"># 推送后执行 [分支名]</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>]</span><br><span class="line">  <span class="comment"># 拉取后执行 [分支名]</span></span><br><span class="line">  <span class="attr">pull_request:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">test:</span></span><br><span class="line">    <span class="comment"># 运行系统</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="comment"># 执行步骤</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="comment"># 步骤名称</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">repo</span></span><br><span class="line">        <span class="comment"># 步骤内容</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Deno</span></span><br><span class="line">        <span class="comment"># uses: denoland/setup-deno@v1</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">denoland/setup-deno@004814556e37c54a2f6e31384c9e18e9833173669</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">deno-version:</span> <span class="string">v1.x</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># Uncomment this step to verify the use of &#x27;deno fmt&#x27; on each commit.</span></span><br><span class="line">      <span class="comment"># - name: Verify formatting</span></span><br><span class="line">      <span class="comment">#   run: deno fmt --check</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Run</span> <span class="string">linter</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">deno</span> <span class="string">lint</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Run</span> <span class="string">tests</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">deno</span> <span class="string">test</span> <span class="string">-A</span> <span class="string">--unstable</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>根据自己的情况,增加或修改 action 的步骤即可, 我这边增加了一个 node 版本的选择+安装依赖+打包 3 个步骤</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Use</span> <span class="string">Node.js</span> <span class="string">$&#123;&#123;</span> <span class="string">matrix.node-version</span> <span class="string">&#125;&#125;</span></span><br><span class="line">   <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line"></span><br><span class="line"> <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">   <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line"> <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">build</span> <span class="string">package</span></span><br><span class="line">   <span class="attr">run:</span> <span class="string">make</span> <span class="string">default</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>提交 pr， 然后查看 action 是否生效</li>
+</ol>
+
+    </div>
+</article>
+        </main>
+        <aside class="aside">
+            <div class="close"></div>
+            <section class="aside-section">
+                
+    <h1>分类</h1>
+
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/broswer/">broswer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li></ul>
+
+            </section>
+            <section class="aside-section">
+                
+    <h1>归档</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+
+
+            </section>
+            <section class="aside-section tag">
+                
+    <h1>标签</h1>
+
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/this%E6%8C%87%E9%92%88/" rel="tag">this指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url/" rel="tag">url</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" rel="tag">事件循环</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%B7%E8%B4%9D/" rel="tag">拷贝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2-Actions/" rel="tag">自动部署 Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" rel="tag">评论系统</a></li></ul>
+
+            </section>
+        </aside>
+    </div>
+</body>
+
+</html>

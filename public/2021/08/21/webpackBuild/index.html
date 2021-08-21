@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="keywords" content="hexo, autumn" />
+    <title>
+        一苇的博客
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="avatar.jpeg" />
+     
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" />
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@2.0.0/dist/main.js"></script>
+
+    <script>
+        infiniteScroll()
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const [
+                mainTitle,
+                mobileMenu,
+                mobileMainTitle,
+                mobileMenuBtn,
+                ipadMenuBtn,
+                aside,
+                closeBtn,
+            ] = getEle(
+                '#main-title',
+                '.mobile-menu',
+                '.mobile-menu h3',
+                '.mobile-menu button',
+                '.ipad-menu',
+                'aside',
+                'aside .close',
+            )
+            const io = new IntersectionObserver(entries => {
+                if (entries[0].intersectionRatio <= 0) {
+                    mobileMainTitle.classList.remove('invisibile')
+                } else {
+                    mobileMainTitle.classList.add('invisibile')
+                }
+            })
+            io.observe(mainTitle)
+
+            clickToggleAside(mobileMenuBtn)
+            clickToggleAside(ipadMenuBtn)
+            clickToggleAside(closeBtn, false)
+
+            const isMenuVisible = window.getComputedStyle(mobileMenu).display !== 'none'
+            if (isMenuVisible) document.body.style.background = 'none'
+
+            function getEle(...args) {
+                return args.map(arg => document.querySelector(arg))
+            }
+
+            function clickToggleAside(btn, show = true) {
+                btn.addEventListener('click', function () {
+                    if (show) {
+                        aside.style.display = 'block'
+                    } else {
+                        aside.style.display = 'none'
+                    }
+                })
+            }
+        })
+    </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+    <div class="container">
+        <header class="header">
+    <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <h3 class="invisibile">
+            <a href="/" class="logo">
+                一苇的博客
+            </a>
+        </h3>
+        <button class="menu">menu</button>
+    </nav>
+
+    <button class="ipad-menu menu">menu</button>
+
+    <h1 class="title" id="main-title">
+        <a href="/" class="logo">
+            一苇的博客
+        </a>
+    </h1>
+    <h2 class="desc">
+        记录点滴
+    </h2>
+
+    <div class="links">
+        <ul>
+            
+            <li>
+                <a target="_blank" rel="noopener" href="https://github.com/a417420427">
+                    Github
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</header>
+        <main class="main">
+            <article class="post">
+    
+    
+    <h4 class="post-cat">
+        <a href="/categories/webpack/">
+            webpack
+        </a>
+    </h4>
+    
+    
+    <h2 class="post-title">
+        webpack搭建
+    </h2>
+    <ul class="post-date">
+        <li>
+            2021-08-21
+        </li>
+        <li>
+            zhangfan
+        </li>
+    </ul>
+    <div class="post-content">
+        <!--
+  name: webpack搭建
+  description: 从0开始搭建一个webpack+react+typescript环境
+-->
+
+<h2 id="从-0-开始搭建一个-webpack-react-typescript-环境"><a href="#从-0-开始搭建一个-webpack-react-typescript-环境" class="headerlink" title="从 0 开始搭建一个 webpack+react+typescript 环境"></a>从 0 开始搭建一个 webpack+react+typescript 环境</h2><ol>
+<li>基础配置</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="attr">entry</span>: &#123;</span><br><span class="line">    <span class="comment">// 入口文件, 可以是相对路径或绝对路径</span></span><br><span class="line">    <span class="attr">main</span>: <span class="string">&quot;./src/index.js&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="comment">// 输出的文件名</span></span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&quot;[name].js&quot;</span>,</span><br><span class="line">    <span class="comment">// 输入路径 必须是绝对路径</span></span><br><span class="line">    <span class="attr">path</span>: path.resolve(__dirname, <span class="string">&quot;../dist&quot;</span>),</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>loaders 静态资源， css</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> generateLoaders = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// webpack 5 静态资源可以直接 使用type assets 设置</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/\.(png|jpe?g|gif|ico|bmp)$/i</span>,</span><br><span class="line">      type: <span class="string">&quot;asset&quot;</span>,</span><br><span class="line">      <span class="attr">parser</span>: &#123;</span><br><span class="line">        <span class="attr">dataUrlCondition</span>: &#123;</span><br><span class="line">          <span class="attr">maxSize</span>: <span class="number">10</span> * <span class="number">1024</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">generator</span>: &#123;</span><br><span class="line">        <span class="attr">filename</span>: <span class="string">&quot;images/[hash][ext][query]&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/i</span>,</span><br><span class="line">      use: [<span class="string">&quot;style-loader&quot;</span>, <span class="string">&quot;css-loader&quot;</span>, <span class="string">&quot;sass-loader&quot;</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">  ];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>ts 配置</li>
+</ol>
+<ul>
+<li>增加一个 tsconfig.json 文件，它包含了输入文件列表以及编译选项</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span>: [<span class="string">&quot;dist&quot;</span>, <span class="string">&quot;node_modules&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;jsx&quot;</span>: <span class="string">&quot;react&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;module&quot;</span>: <span class="string">&quot;esnext&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;target&quot;</span>: <span class="string">&quot;esnext&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;sourceMap&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;strict&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;moduleResolution&quot;</span>: <span class="string">&quot;node&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;forceConsistentCasingInFileNames&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;noImplicitReturns&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;noUnusedLocals&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;noUncheckedIndexedAccess&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;suppressImplicitAnyIndexErrors&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;emitDecoratorMetadata&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;experimentalDecorators&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 没有export default的文件 可以使用 import * as  DefaultModule 的方式引入文件</span></span><br><span class="line">    <span class="attr">&quot;allowSyntheticDefaultImports&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 允许引入js</span></span><br><span class="line">    <span class="attr">&quot;allowJs&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 允许引入json文件</span></span><br><span class="line">    <span class="attr">&quot;resolveJsonModule&quot;</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>loader 增加 ts 支持</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> generateLoaders = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/\.tsx?$/</span>,</span><br><span class="line">      use: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">loader</span>: <span class="string">&quot;babel-loader&quot;</span>,</span><br><span class="line">          <span class="attr">options</span>: &#123;</span><br><span class="line">            <span class="attr">presets</span>: [<span class="string">&quot;@babel/preset-env&quot;</span>],</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;ts-loader&quot;</span>,</span><br><span class="line">      ],</span><br><span class="line">    &#125;,</span><br><span class="line">  ];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其他配置项 React ReactDOM 快捷引入(免去每个文件 import)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="comment">// 这里需要在ts文件内全局定义React和ReactDOM</span></span><br><span class="line">    <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</span><br><span class="line">      <span class="attr">React</span>: <span class="string">&#x27;react&#x27;</span>,</span><br><span class="line">      <span class="attr">ReactDOM</span>: <span class="string">&#x27;react-dom&#x27;</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// global.d.ts</span></span><br><span class="line">declare <span class="keyword">const</span> React: <span class="keyword">typeof</span> <span class="keyword">import</span>(<span class="string">&#x27;react&#x27;</span>)</span><br><span class="line">declare <span class="keyword">const</span> ReactDOM: <span class="keyword">typeof</span> <span class="keyword">import</span>(<span class="string">&#x27;react-dom&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>scss 配置 使用 astroturf</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .babel.config.js</span></span><br><span class="line"><span class="comment">// https://4catalyzer.github.io/astroturf/setup</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">&quot;astroturf/plugin&quot;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">tagName</span>: <span class="string">&quot;css&quot;</span>,</span><br><span class="line">        <span class="attr">extension</span>: <span class="string">&quot;.scss&quot;</span>,</span><br><span class="line">        <span class="attr">writeFiles</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="function"><span class="title">getFileName</span>(<span class="params">hostFilePath, pluginsOptions</span>)</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&quot;hostFilePath&quot;</span>, hostFilePath);</span><br><span class="line">          <span class="keyword">const</span> basepath = path.join(</span><br><span class="line">            path.dirname(hostFilePath),</span><br><span class="line">            path.basename(hostFilePath, path.extname(hostFilePath))</span><br><span class="line">          );</span><br><span class="line">          <span class="keyword">const</span> relativePath = path.relative(__dirname, basepath);</span><br><span class="line">          <span class="keyword">return</span> <span class="string">`.astroturf/extracted_styles/<span class="subst">$&#123;relativePath&#125;</span>.scss`</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line">config.rules = [</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">test</span>: <span class="regexp">/\.tsx?$/</span>,</span><br><span class="line">    use: [</span><br><span class="line">      <span class="string">&quot;babel-loader&quot;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&quot;astroturf/loader&quot;</span>,</span><br><span class="line">        <span class="attr">options</span>: &#123; <span class="attr">extension</span>: <span class="string">&quot;.module.scss&quot;</span> &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">&quot;ts-loader&quot;</span>,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>部分优化工作</li>
+</ul>
+<ol>
+<li>splitChunks</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">optimization</span>: &#123;</span><br><span class="line">    <span class="attr">minimize</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">splitChunks</span>: &#123;</span><br><span class="line">      <span class="attr">cacheGroups</span>: &#123;</span><br><span class="line">        <span class="attr">commons</span>: &#123;</span><br><span class="line">          <span class="attr">name</span>: <span class="string">&quot;vendors&quot;</span>,</span><br><span class="line">          <span class="comment">// 匹配react相关的包 合并</span></span><br><span class="line">          <span class="attr">test</span>: <span class="regexp">/[\\/]node_modules[\\/](react|react-.*)[\\/]/</span>,</span><br><span class="line">          chunks: <span class="string">&quot;all&quot;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>缩小路径，减少打包时索引时间</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/i</span>,</span><br><span class="line">        use: [<span class="string">&quot;style-loader&quot;</span>, <span class="string">&quot;css-loader&quot;</span>, <span class="string">&quot;sass-loader&quot;</span>],</span><br><span class="line">        <span class="comment">// 确认是否只在src目录里面有引入scss文件</span></span><br><span class="line">        <span class="comment">// 如果在node_module内也引入了需要单独加上</span></span><br><span class="line">        <span class="comment">// 或者不设置</span></span><br><span class="line">        <span class="attr">include</span>: path.join(__dirname, <span class="string">&quot;../src&quot;</span>),</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>其他</li>
+</ol>
+<ul>
+<li>使用 webpack-bundle-analyzer 对具体情况进行分析，根据文件使用情况可以选择 cdn 或者合并等方式</li>
+</ul>
+
+    </div>
+</article>
+        </main>
+        <aside class="aside">
+            <div class="close"></div>
+            <section class="aside-section">
+                
+    <h1>分类</h1>
+
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/broswer/">broswer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li></ul>
+
+            </section>
+            <section class="aside-section">
+                
+    <h1>归档</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+
+
+            </section>
+            <section class="aside-section tag">
+                
+    <h1>标签</h1>
+
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/this%E6%8C%87%E9%92%88/" rel="tag">this指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url/" rel="tag">url</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" rel="tag">事件循环</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%B7%E8%B4%9D/" rel="tag">拷贝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2-Actions/" rel="tag">自动部署 Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" rel="tag">评论系统</a></li></ul>
+
+            </section>
+        </aside>
+    </div>
+</body>
+
+</html>

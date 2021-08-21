@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="keywords" content="hexo, autumn" />
+    <title>
+        一苇的博客
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="avatar.jpeg" />
+     
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" />
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@2.0.0/dist/main.js"></script>
+
+    <script>
+        infiniteScroll()
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const [
+                mainTitle,
+                mobileMenu,
+                mobileMainTitle,
+                mobileMenuBtn,
+                ipadMenuBtn,
+                aside,
+                closeBtn,
+            ] = getEle(
+                '#main-title',
+                '.mobile-menu',
+                '.mobile-menu h3',
+                '.mobile-menu button',
+                '.ipad-menu',
+                'aside',
+                'aside .close',
+            )
+            const io = new IntersectionObserver(entries => {
+                if (entries[0].intersectionRatio <= 0) {
+                    mobileMainTitle.classList.remove('invisibile')
+                } else {
+                    mobileMainTitle.classList.add('invisibile')
+                }
+            })
+            io.observe(mainTitle)
+
+            clickToggleAside(mobileMenuBtn)
+            clickToggleAside(ipadMenuBtn)
+            clickToggleAside(closeBtn, false)
+
+            const isMenuVisible = window.getComputedStyle(mobileMenu).display !== 'none'
+            if (isMenuVisible) document.body.style.background = 'none'
+
+            function getEle(...args) {
+                return args.map(arg => document.querySelector(arg))
+            }
+
+            function clickToggleAside(btn, show = true) {
+                btn.addEventListener('click', function () {
+                    if (show) {
+                        aside.style.display = 'block'
+                    } else {
+                        aside.style.display = 'none'
+                    }
+                })
+            }
+        })
+    </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+    <div class="container">
+        <header class="header">
+    <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <h3 class="invisibile">
+            <a href="/" class="logo">
+                一苇的博客
+            </a>
+        </h3>
+        <button class="menu">menu</button>
+    </nav>
+
+    <button class="ipad-menu menu">menu</button>
+
+    <h1 class="title" id="main-title">
+        <a href="/" class="logo">
+            一苇的博客
+        </a>
+    </h1>
+    <h2 class="desc">
+        记录点滴
+    </h2>
+
+    <div class="links">
+        <ul>
+            
+            <li>
+                <a target="_blank" rel="noopener" href="https://github.com/a417420427">
+                    Github
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</header>
+        <main class="main">
+            <article class="post">
+    
+    
+    <h4 class="post-cat">
+        <a href="/categories/webpack/">
+            webpack
+        </a>
+    </h4>
+    
+    
+    <h2 class="post-title">
+        webpack构建流程
+    </h2>
+    <ul class="post-date">
+        <li>
+            2021-08-21
+        </li>
+        <li>
+            zhangfan
+        </li>
+    </ul>
+    <div class="post-content">
+        <h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><ol>
+<li>开始运行 Webpack。</li>
+</ol>
+<ul>
+<li>读取与合并参数，加载 plugin。</li>
+<li>实例化 Compiler(编译器)。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack 5 部分源码解读</span></span><br><span class="line"><span class="keyword">const</span> webpack = <span class="function">(<span class="params">options, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> create = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 检查，读取与合并参数</span></span><br><span class="line">    <span class="keyword">if</span> (!webpackOptionsSchemaCheck(options)) &#123;</span><br><span class="line">      getValidateSchema()(webpackOptionsSchema, options);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> compiler;</span><br><span class="line">    <span class="keyword">let</span> watch = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">let</span> watchOptions;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(options)) &#123;</span><br><span class="line">      compiler = createMultiCompiler(options, options);</span><br><span class="line">      watch = options.some(<span class="function">(<span class="params">options</span>) =&gt;</span> options.watch);</span><br><span class="line">      watchOptions = options.map(<span class="function">(<span class="params">options</span>) =&gt;</span> options.watchOptions || &#123;&#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> webpackOptions = options;</span><br><span class="line">      <span class="comment">// 创建 编译器 实例</span></span><br><span class="line">      compiler = createCompiler(webpackOptions);</span><br><span class="line">      watch = webpackOptions.watch;</span><br><span class="line">      watchOptions = webpackOptions.watchOptions || &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123; compiler, watch, watchOptions &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">if</span> (callback) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; compiler, watch, watchOptions &#125; = create();</span><br><span class="line">      <span class="keyword">if</span> (watch) &#123;</span><br><span class="line">        <span class="comment">// 开始编译 并监听</span></span><br><span class="line">        compiler.watch(watchOptions, callback);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 开始编译</span></span><br><span class="line">        compiler.run(<span class="function">(<span class="params">err, stats</span>) =&gt;</span> &#123;</span><br><span class="line">          compiler.close(<span class="function">(<span class="params">err2</span>) =&gt;</span> &#123;</span><br><span class="line">            callback(err || err2, stats);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> compiler;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      process.nextTick(<span class="function">() =&gt;</span> callback(err));</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; compiler, watch &#125; = create();</span><br><span class="line">    <span class="keyword">if</span> (watch) &#123;</span><br><span class="line">      util.deprecate(</span><br><span class="line">        <span class="function">() =&gt;</span> &#123;&#125;,</span><br><span class="line">        <span class="string">&quot;A &#x27;callback&#x27; argument needs to be provided to the &#x27;webpack(options, callback)&#x27; function when the &#x27;watch&#x27; option is set. There is no way to handle the &#x27;watch&#x27; option without a callback.&quot;</span>,</span><br><span class="line">        <span class="string">&quot;DEP_WEBPACK_WATCH_WITHOUT_CALLBACK&quot;</span></span><br><span class="line">      )();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> compiler;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建编译器</span></span><br><span class="line"><span class="keyword">const</span> createCompiler = <span class="function">(<span class="params">rawOptions</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> options = getNormalizedWebpackOptions(rawOptions);</span><br><span class="line">  applyWebpackOptionsBaseDefaults(options);</span><br><span class="line">  <span class="keyword">const</span> compiler = <span class="keyword">new</span> Compiler(options.context);</span><br><span class="line">  compiler.options = options;</span><br><span class="line">  <span class="comment">// 对文件做了处理，重新封装node.js 对fs模块做了以一些处理，文件的输入，输出，缓存，监听等</span></span><br><span class="line">  <span class="keyword">new</span> NodeEnvironmentPlugin(&#123;</span><br><span class="line">    <span class="attr">infrastructureLogging</span>: options.infrastructureLogging,</span><br><span class="line">  &#125;).apply(compiler);</span><br><span class="line">  <span class="comment">// 加载plugin, 将 compiler 实例 传给每个plugin</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(options.plugins)) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> plugin <span class="keyword">of</span> options.plugins) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> plugin === <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">        plugin.call(compiler, compiler);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        plugin.apply(compiler);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 应用参数 context devtools target mode ...</span></span><br><span class="line">  applyWebpackOptionsDefaults(options);</span><br><span class="line">  <span class="comment">// 触发hook 在准备环境之前运行插件。</span></span><br><span class="line">  compiler.hooks.environment.call();</span><br><span class="line">  <span class="comment">// 触发hook 执行插件环境设置完成。</span></span><br><span class="line">  compiler.hooks.afterEnvironment.call();</span><br><span class="line">  <span class="comment">// 应用各类中间件</span></span><br><span class="line">  <span class="keyword">new</span> WebpackOptionsApply().process(options, compiler);</span><br><span class="line">  <span class="comment">// 触发hook 编译器对象被初始化</span></span><br><span class="line">  compiler.hooks.initialize.call();</span><br><span class="line">  <span class="keyword">return</span> compiler;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>compiler.run 开始编译(这里先分享单入口的情况)</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 编译路径 起始 (webpack.js)</span></span><br><span class="line">compiler.run();</span><br><span class="line"><span class="comment">// 2. 触发 compiler的entryOption hook</span></span><br><span class="line"><span class="comment">// WebpackOptionsApply 中调用 EntryOptionPlugin().apply()之后设置的hook EntryOptionPlugin.js</span></span><br><span class="line">compiler.hooks.entryOption.tap(<span class="string">&quot;EntryOptionPlugin&quot;</span>, <span class="function">(<span class="params">context, entry</span>) =&gt;</span> &#123;</span><br><span class="line">  EntryOptionPlugin.applyEntryOption(compiler, context, entry);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 3. 触发 compiler的 make hook EntryPlugin.js</span></span><br><span class="line"><span class="comment">// compiler.compile 内设置的hook</span></span><br><span class="line">compiler.hooks.make.tapAsync(<span class="string">&quot;EntryPlugin&quot;</span>, <span class="function">(<span class="params">compilation, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  compilation.addEntry(context, dep, options, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    callback(err);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 4. 通过(Compilation.js)addEntry =&gt; _addEntryItem =&gt; addModuleTree=&gt; handleModuleCreation =&gt; addModule =&gt; (NormalModule.js)build</span></span><br><span class="line"><span class="comment">// NormalModule.build 中调用 doBuild方法 然后将代码经过 runLoaders方法 进行转译</span></span><br><span class="line">NormalModule.build = <span class="function"><span class="keyword">function</span> (<span class="params">args, callback</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.doBuild(args, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      result = <span class="built_in">this</span>.parser.parse();</span><br><span class="line">      handleBuildDone();</span><br><span class="line">      <span class="keyword">return</span> callback();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      handleParseError(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">NormalModule.doBuild = <span class="function"><span class="keyword">function</span> (<span class="params">args, callback</span>) </span>&#123;</span><br><span class="line">  runLoaders(args, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> callback();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 然后通过parser.parse方法将代码转成ast语法树， 然后接下来对所依赖的对象进行收集</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//6. 做Compilation 通过回调中调用 Compilation.seal方法根据依赖关系生成结果代码</span></span><br></pre></td></tr></table></figure>
+
+<p>-</p>
+<ol start="2">
+<li>使用 Parser 分析项目依赖。</li>
+<li>使用 Template 生成结果代码。</li>
+</ol>
+<h2 id="通过构建-plugin-监听上述各个步骤"><a href="#通过构建-plugin-监听上述各个步骤" class="headerlink" title="通过构建 plugin 监听上述各个步骤"></a>通过构建 plugin 监听上述各个步骤</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WatchModulePlugin</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;&#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;Webpack.Compiler&#125;</span> <span class="variable">compiler</span></span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="title">apply</span>(<span class="params">compiler</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> pluginName = <span class="string">&quot;WatchModulePlugin&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> hooks = [</span><br><span class="line">      <span class="string">&quot;environment&quot;</span>,</span><br><span class="line">      <span class="string">&quot;afterEnvironment&quot;</span>,</span><br><span class="line">      <span class="string">&quot;initialize&quot;</span>,</span><br><span class="line">      <span class="string">&quot;compilation&quot;</span>,</span><br><span class="line">      <span class="string">&quot;make&quot;</span>,</span><br><span class="line">      <span class="string">&quot;run&quot;</span>,</span><br><span class="line">      <span class="string">&quot;entryOption&quot;</span>,</span><br><span class="line">      <span class="string">&quot;normalModuleFactory&quot;</span>,</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">const</span> compilationHooks = [</span><br><span class="line">      <span class="string">&quot;addEntry&quot;</span>,</span><br><span class="line">      <span class="string">&quot;seal&quot;</span>,</span><br><span class="line">      <span class="string">&quot;buildModule&quot;</span>,</span><br><span class="line">      <span class="string">&quot;finishModules&quot;</span>,</span><br><span class="line">      <span class="string">&quot;beforeModuleIds&quot;</span>,</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">const</span> _this = <span class="built_in">this</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">logHook</span>(<span class="params">hook</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&quot;hooks-&quot;</span>, hook);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">logCompilationHook</span>(<span class="params">compilation</span>) </span>&#123;</span><br><span class="line">      compilationHooks.forEach(<span class="function">(<span class="params">hook</span>) =&gt;</span> &#123;</span><br><span class="line">        compilation.hooks[hook].tap(pluginName, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&quot;hooks-compilation-&quot;</span> + hook);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    hooks.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">hook</span>) </span>&#123;</span><br><span class="line">      compiler.hooks[hook].tap(<span class="string">&quot;WatchModulePlugin&quot;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">compilation</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (hook === <span class="string">&quot;compilation&quot;</span>) &#123;</span><br><span class="line">          logCompilationHook(compilation);</span><br><span class="line">        &#125;</span><br><span class="line">        logHook(hook);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出</span></span><br><span class="line"><span class="comment">hooks- environment</span></span><br><span class="line"><span class="comment">hooks- afterEnvironment</span></span><br><span class="line"><span class="comment">hooks- entryOption</span></span><br><span class="line"><span class="comment">hooks- initialize</span></span><br><span class="line"><span class="comment">hooks- run</span></span><br><span class="line"><span class="comment">hooks- normalModuleFactory</span></span><br><span class="line"><span class="comment">hooks- compilation</span></span><br><span class="line"><span class="comment">hooks- make</span></span><br><span class="line"><span class="comment">hooks-compilation-addEntry</span></span><br><span class="line"><span class="comment">hooks-compilation-buildModule</span></span><br><span class="line"><span class="comment">hooks-compilation-buildModule</span></span><br><span class="line"><span class="comment">hooks-compilation-finishModules</span></span><br><span class="line"><span class="comment">hooks-compilation-seal</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+</article>
+        </main>
+        <aside class="aside">
+            <div class="close"></div>
+            <section class="aside-section">
+                
+    <h1>分类</h1>
+
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/broswer/">broswer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li></ul>
+
+            </section>
+            <section class="aside-section">
+                
+    <h1>归档</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+
+
+            </section>
+            <section class="aside-section tag">
+                
+    <h1>标签</h1>
+
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/this%E6%8C%87%E9%92%88/" rel="tag">this指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url/" rel="tag">url</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" rel="tag">事件循环</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%B7%E8%B4%9D/" rel="tag">拷贝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2-Actions/" rel="tag">自动部署 Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" rel="tag">评论系统</a></li></ul>
+
+            </section>
+        </aside>
+    </div>
+</body>
+
+</html>
