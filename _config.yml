@@ -97,7 +97,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: autumn
+theme: mintin
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -106,3 +106,35 @@ deploy:
 
 # user config
 avatar: avatar.jpeg
+# hexo-excerpt
+# 自动生成摘要的插件
+# 项请见 https://github.com/chekun/hexo-excerpt
+excerpt:
+  depth: 4
+  excerpt_excludes: ['h1','h2','h3','h4','img','hr','blockquote']
+  more_excludes: []
+  hideWholePostExcerpts: true
+ 
+# 根据目录生成分类的插件 
+# Generate categories from directory-tree
+# 项请见 https://github.com/xu-song/hexo-auto-category
+# depth: the depth of directory-tree you want to generate, should > 0
+auto_category:
+  enable: true
+  depth: 5
+  
+# 标签云插件
+# tags cloud
+# https://github.com/MikeCoder/hexo-tag-cloud/blob/master/README.ZH.md
+tag_cloud:
+  textFont: ''
+  textColour: \#333
+  textHeight: 25
+  outlineColour: \#e2e1d1
+
+search: true
+aside-description: aside-description
+links:
+  百度: https://www.baidu.com/
+  谷歌: https://www.google.com/
+  知乎: https://www.zhihu.com/
