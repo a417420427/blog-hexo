@@ -8,3 +8,5 @@ public/
 .deploy*/
 .bin
 yarn-error.log
+
+docs
