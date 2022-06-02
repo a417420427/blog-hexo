@@ -1,152 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta name="keywords" content="hexo, autumn" />
-    <title>
-        一苇的博客
-    </title>
-    <!-- favicon -->
+    <meta charset="utf-8">
     
-    <link rel="icon" href="avatar.jpeg" />
-     
-<link rel="stylesheet" href="/css/style.css">
+        <title>Vue slot | 一苇的博客</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel='shortcut icon' href="/favicon.ico">
+    
+<link rel="stylesheet" href="/css/index.css">
 
+    
+<link rel="stylesheet" href="/css/plugins/highlight/dark.css">
 
-    <!-- highlight -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" />
-    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
-    <script>
-        hljs.initHighlightingOnLoad()
-    </script>
-    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@2.0.0/dist/main.js"></script>
+    
+<link rel="stylesheet" href="/css/plugins/iconfont/iconfont.css">
 
-    <script>
-        infiniteScroll()
-
-        window.addEventListener('DOMContentLoaded', function () {
-            const [
-                mainTitle,
-                mobileMenu,
-                mobileMainTitle,
-                mobileMenuBtn,
-                ipadMenuBtn,
-                aside,
-                closeBtn,
-            ] = getEle(
-                '#main-title',
-                '.mobile-menu',
-                '.mobile-menu h3',
-                '.mobile-menu button',
-                '.ipad-menu',
-                'aside',
-                'aside .close',
-            )
-            const io = new IntersectionObserver(entries => {
-                if (entries[0].intersectionRatio <= 0) {
-                    mobileMainTitle.classList.remove('invisibile')
-                } else {
-                    mobileMainTitle.classList.add('invisibile')
-                }
-            })
-            io.observe(mainTitle)
-
-            clickToggleAside(mobileMenuBtn)
-            clickToggleAside(ipadMenuBtn)
-            clickToggleAside(closeBtn, false)
-
-            const isMenuVisible = window.getComputedStyle(mobileMenu).display !== 'none'
-            if (isMenuVisible) document.body.style.background = 'none'
-
-            function getEle(...args) {
-                return args.map(arg => document.querySelector(arg))
-            }
-
-            function clickToggleAside(btn, show = true) {
-                btn.addEventListener('click', function () {
-                    if (show) {
-                        aside.style.display = 'block'
-                    } else {
-                        aside.style.display = 'none'
-                    }
-                })
-            }
-        })
-    </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
-
-<body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
-    <div class="container">
-        <header class="header">
-    <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
-        <h3 class="invisibile">
-            <a href="/" class="logo">
-                一苇的博客
-            </a>
-        </h3>
-        <button class="menu">菜单</button>
-    </nav>
-
-    <button class="ipad-menu menu">菜单</button>
-
-    <h1 class="title" id="main-title">
-        <a href="/" class="logo">
-            一苇的博客
-        </a>
-    </h1>
-    <h2 class="desc">
-        记录点滴
-    </h2>
-
-    <div class="links">
+<body>
+    <div class="navbar-container">
+    <div class="navbar">
         <ul>
-            
-            <li>
-                <a target="_blank" rel="noopener" href="https://github.com/a417420427">
-                    Github
-                </a>
-            </li>
-            
-            <li>
-                <a target="_blank" rel="noopener" href="https://blog.zxueping.com/dist/index.html#/Resume">
-                    简历
-                </a>
-            </li>
-            
-            <li>
-                <a target="_blank" rel="noopener" href="https://blog.zxueping.com/config/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86(%E5%BC%A0%E5%B8%86).pdf">
-                    附件
-                </a>
-            </li>
-            
+            <li><a href="/">一苇的博客</a></li>
+            <li><a href="/">首页</a></li>
+            <li><a href='/categories'>分類</a></li>
+            <li><a href="/tags">標籤</a></li>
+            <li><a href="/about">關於</a></li>
         </ul>
     </div>
-</header>
-        <main class="main">
-            <article class="post">
+</div>
+    <div class="all-container">
+        <div class="article-container">
+    <h2 class="title">Vue slot</h2>
+    <span class="info">2022年4月1日</span>
     
     
-    <h4 class="post-cat">
-        <a href="/categories/Vue-javascript/">
-            Vue javascript
-        </a>
-    </h4>
+        <div class="toc">
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%8F%92%E6%A7%BD-%E9%BB%98%E8%AE%A4%E5%90%8D%E7%A7%B0%E4%B8%BA-default"><span class="toc-number">1.</span> <span class="toc-text">普通插槽 默认名称为 default</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD-Named-Slots"><span class="toc-number">2.</span> <span class="toc-text">具名插槽 Named Slots</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E5%90%8D-%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD-Named-Scoped-Slots"><span class="toc-number">3.</span> <span class="toc-text">具名+作用域插槽 Named Scoped Slots</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tips"><span class="toc-number">4.</span> <span class="toc-text">tips</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+        </div>
     
-    
-    <h2 class="post-title">
-        Vue slot
-    </h2>
-    <ul class="post-date">
-        <li>
-            2022-04-01
-        </li>
-        <li>
-            zhangfan
-        </li>
-    </ul>
-    <div class="post-content">
-        <h3 id="普通插槽-默认名称为-default"><a href="#普通插槽-默认名称为-default" class="headerlink" title="普通插槽 默认名称为 default"></a>普通插槽 默认名称为 default</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- SlotChild --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">slot</span>&gt;</span></span><br><span class="line">  替换前内容1</span><br><span class="line"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">slot-child</span>&gt;</span></span><br><span class="line">  替换后内容</span><br><span class="line"><span class="tag">&lt;/<span class="name">slot-child</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+    <div class="content"><h3 id="普通插槽-默认名称为-default"><a href="#普通插槽-默认名称为-default" class="headerlink" title="普通插槽 默认名称为 default"></a>普通插槽 默认名称为 default</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- SlotChild --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">slot</span>&gt;</span></span><br><span class="line">  替换前内容1</span><br><span class="line"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">slot-child</span>&gt;</span></span><br><span class="line">  替换后内容</span><br><span class="line"><span class="tag">&lt;/<span class="name">slot-child</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="具名插槽-Named-Slots"><a href="#具名插槽-Named-Slots" class="headerlink" title="具名插槽 Named Slots"></a>具名插槽 Named Slots</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">  替换前内容2</span><br><span class="line"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">slot-child</span>&gt;</span></span><br><span class="line">  这里不会显示</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">slot</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">    替换方法1</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-slot:content</span>&gt;</span></span><br><span class="line">    替换方法2</span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> #<span class="attr">header</span>&gt;</span>替换方法3<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">  3种写法都可以 写了多个只会展示最后一个</span><br><span class="line"><span class="tag">&lt;/<span class="name">slot-child</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -173,36 +67,63 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/vuejs/rfcs/blob/master/active-rfcs/0001-new-slot-syntax.md">https://github.com/vuejs/rfcs/blob/master/active-rfcs/0001-new-slot-syntax.md</a> 官方更新记录</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/vuejs/vue/issues/7740#issuecomment-371309357">https://github.com/vuejs/vue/issues/7740#issuecomment-371309357</a> 相关issue</li>
 </ol>
+</div>
+    <hr>
+    <div class="tags"></div>
+</div>
+<div class="paging">
+    
+    
+        <a id="prev" href="/2022/04/24/%E4%BB%A3%E7%A0%81%E7%AE%80%E6%B4%81%E4%B9%8B%E9%81%93%EF%BC%88%E4%B8%80%EF%BC%89/">上一篇</a>
+    
+    
+        <a id="next" href="/2021/08/24/reactComponent/">下一篇</a>
+    
+</div>
+<div class="footer">
+    <p><a href="/about/">轉載前請聯繫作者</a></p>
+</div>
 
+<script src="/js/highlight.pack.js"></script>
+
+</script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="/js/iconfont.js"></script>
+
+<style>
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+</style>
+    
     </div>
-</article>
-        </main>
-        <aside class="aside">
-            <div class="close"></div>
-            <section class="aside-section">
-                
-    <h1>分类</h1>
+    <div class='rights'>
+	<p>©<span id='years'></span> Mint Forge. All Rights Reserved.</p>
+</div>
+<script type="text/javascript">
+	var today = new Date()
+	var years = today.getFullYear()
+	document.getElementById('years').innerHTML=years
+</script>
+    
+<script src="/js/iconfont.js"></script>
 
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Vue-javascript/">Vue javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/broswer/">broswer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/code/">code</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/react-javascript/">react javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
-
-            </section>
-            <section class="aside-section">
-                
-    <h1>归档</h1>
-
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
-
-
-            </section>
-            <section class="aside-section tag">
-                
-    <h1>标签</h1>
-
-    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-slot/" rel="tag">Vue slot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lazyload/" rel="tag">lazyload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lodash-debounce/" rel="tag">lodash debounce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/queue/" rel="tag">queue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react-%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">react 组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this%E6%8C%87%E9%92%88/" rel="tag">this指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url/" rel="tag">url</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" rel="tag">事件循环</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0-%E6%9F%AF%E9%87%8C%E5%8C%96/" rel="tag">函数 柯里化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%8B%BD%E4%B8%8A%E4%BC%A0-dragevent/" rel="tag">拖拽上传 dragevent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%B7%E8%B4%9D/" rel="tag">拷贝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2-Actions/" rel="tag">自动部署 Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" rel="tag">评论系统</a></li></ul>
-
-            </section>
-        </aside>
-    </div>
+<style>
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+</style>
+    
 </body>
-
 </html>

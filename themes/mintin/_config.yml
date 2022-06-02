@@ -1,0 +1,21 @@
+# Custom nav
+title: "一苇的博客"
+author: zhangfan
+
+# Social media
+social:
+  GitHub: ""
+  Weibo: ""
+  Facebook: ""
+  Flickr: ""
+  Tumblr: ""
+
+# Custom Copyright
+mail: a417420zha@gmail.com
+copyright: All rights reserved @zhang fan
+
+# sass plugin
+node_sass:
+  outputStyle: nested
+  precision: 5
+  sourceComments: false

@@ -1,152 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta name="keywords" content="hexo, autumn" />
-    <title>
-        一苇的博客
-    </title>
-    <!-- favicon -->
+    <meta charset="utf-8">
     
-    <link rel="icon" href="avatar.jpeg" />
-     
-<link rel="stylesheet" href="/css/style.css">
+        <title>React组件化 | 一苇的博客</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel='shortcut icon' href="/favicon.ico">
+    
+<link rel="stylesheet" href="/css/index.css">
 
+    
+<link rel="stylesheet" href="/css/plugins/highlight/dark.css">
 
-    <!-- highlight -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css" />
-    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
-    <script>
-        hljs.initHighlightingOnLoad()
-    </script>
-    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@2.0.0/dist/main.js"></script>
+    
+<link rel="stylesheet" href="/css/plugins/iconfont/iconfont.css">
 
-    <script>
-        infiniteScroll()
-
-        window.addEventListener('DOMContentLoaded', function () {
-            const [
-                mainTitle,
-                mobileMenu,
-                mobileMainTitle,
-                mobileMenuBtn,
-                ipadMenuBtn,
-                aside,
-                closeBtn,
-            ] = getEle(
-                '#main-title',
-                '.mobile-menu',
-                '.mobile-menu h3',
-                '.mobile-menu button',
-                '.ipad-menu',
-                'aside',
-                'aside .close',
-            )
-            const io = new IntersectionObserver(entries => {
-                if (entries[0].intersectionRatio <= 0) {
-                    mobileMainTitle.classList.remove('invisibile')
-                } else {
-                    mobileMainTitle.classList.add('invisibile')
-                }
-            })
-            io.observe(mainTitle)
-
-            clickToggleAside(mobileMenuBtn)
-            clickToggleAside(ipadMenuBtn)
-            clickToggleAside(closeBtn, false)
-
-            const isMenuVisible = window.getComputedStyle(mobileMenu).display !== 'none'
-            if (isMenuVisible) document.body.style.background = 'none'
-
-            function getEle(...args) {
-                return args.map(arg => document.querySelector(arg))
-            }
-
-            function clickToggleAside(btn, show = true) {
-                btn.addEventListener('click', function () {
-                    if (show) {
-                        aside.style.display = 'block'
-                    } else {
-                        aside.style.display = 'none'
-                    }
-                })
-            }
-        })
-    </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
-
-<body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
-    <div class="container">
-        <header class="header">
-    <nav class="mobile-menu" style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
-        <h3 class="invisibile">
-            <a href="/" class="logo">
-                一苇的博客
-            </a>
-        </h3>
-        <button class="menu">菜单</button>
-    </nav>
-
-    <button class="ipad-menu menu">菜单</button>
-
-    <h1 class="title" id="main-title">
-        <a href="/" class="logo">
-            一苇的博客
-        </a>
-    </h1>
-    <h2 class="desc">
-        记录点滴
-    </h2>
-
-    <div class="links">
+<body>
+    <div class="navbar-container">
+    <div class="navbar">
         <ul>
-            
-            <li>
-                <a target="_blank" rel="noopener" href="https://github.com/a417420427">
-                    Github
-                </a>
-            </li>
-            
-            <li>
-                <a target="_blank" rel="noopener" href="https://blog.zxueping.com/dist/index.html#/Resume">
-                    简历
-                </a>
-            </li>
-            
-            <li>
-                <a target="_blank" rel="noopener" href="https://blog.zxueping.com/config/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86(%E5%BC%A0%E5%B8%86).pdf">
-                    附件
-                </a>
-            </li>
-            
+            <li><a href="/">一苇的博客</a></li>
+            <li><a href="/">首页</a></li>
+            <li><a href='/categories'>分類</a></li>
+            <li><a href="/tags">標籤</a></li>
+            <li><a href="/about">關於</a></li>
         </ul>
     </div>
-</header>
-        <main class="main">
-            <article class="post">
+</div>
+    <div class="all-container">
+        <div class="article-container">
+    <h2 class="title">React组件化</h2>
+    <span class="info">2021年8月24日</span>
     
     
-    <h4 class="post-cat">
-        <a href="/categories/react-javascript/">
-            react javascript
-        </a>
-    </h4>
+        <div class="toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%8C%96%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">组件化概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-number">2.</span> <span class="toc-text">组件设计原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%B4%E5%BA%A6"><span class="toc-number">3.</span> <span class="toc-text">维度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E7%BB%84%E4%BB%B6%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96%E7%BB%84%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">容器组件和可视化组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react-hooks"><span class="toc-number">5.</span> <span class="toc-text">react hooks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-%E8%A1%A8%E6%A0%BC%E9%AA%8C%E8%AF%81"><span class="toc-number">6.</span> <span class="toc-text">示例 - 表格验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#z"><span class="toc-number">7.</span> <span class="toc-text">z</span></a></li></ol>
+        </div>
     
-    
-    <h2 class="post-title">
-        React组件化
-    </h2>
-    <ul class="post-date">
-        <li>
-            2021-08-24
-        </li>
-        <li>
-            zhangfan
-        </li>
-    </ul>
-    <div class="post-content">
-        <h2 id="组件化概念"><a href="#组件化概念" class="headerlink" title="组件化概念"></a>组件化概念</h2><p>将一个复杂的页面分割成若干个独立的组件，每个组件包含自己的逻辑和样式，再将这些独立组件组合成完成一个复杂的页面，这样既减少了逻辑复杂度，又实现了代码的重用， 特点</p>
+
+    <div class="content"><h2 id="组件化概念"><a href="#组件化概念" class="headerlink" title="组件化概念"></a>组件化概念</h2><p>将一个复杂的页面分割成若干个独立的组件，每个组件包含自己的逻辑和样式，再将这些独立组件组合成完成一个复杂的页面，这样既减少了逻辑复杂度，又实现了代码的重用， 特点</p>
 <ol>
 <li><p>可组合：一个组件可以和其它的组件一起使用，或者可以直接嵌套再另外一个组件内部</p>
 </li>
@@ -187,36 +81,63 @@
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 改良版 组件拆分</span></span><br><span class="line">enum FormValidateType &#123;</span><br><span class="line">  phone = <span class="string">&#x27;phone&#x27;</span>,</span><br><span class="line">  password = <span class="string">&#x27;password&#x27;</span>,</span><br><span class="line">  account = <span class="string">&#x27;account&#x27;</span>,</span><br><span class="line">  code = <span class="string">&#x27;code&#x27;</span>,</span><br><span class="line">  confirmPassword = <span class="string">&#x27;confirmPassword&#x27;</span>,</span><br><span class="line">  accountType = <span class="string">&#x27;accountType&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type FormState = Record&lt;FormValidateType, string&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validateForm</span>(<span class="params">type: FormValidateType, state: FormState</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">    <span class="keyword">case</span> FormValidateType.phone:</span><br><span class="line">      <span class="keyword">return</span> validatePhone(state)</span><br><span class="line">    <span class="keyword">case</span> FormValidateType.password:</span><br><span class="line">      <span class="keyword">return</span> validatePassword(state)</span><br><span class="line">    <span class="keyword">case</span> FormValidateType.confirmPassword:</span><br><span class="line">      <span class="keyword">return</span> validateConfirmPassword(state)</span><br><span class="line">    <span class="keyword">case</span> FormValidateType.code:</span><br><span class="line">      <span class="keyword">return</span> validateCode(state)</span><br><span class="line">    <span class="keyword">case</span> FormValidateType.account:</span><br><span class="line">      <span class="keyword">return</span> validateAccount(state)</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">validatePhone</span>(<span class="params">state: FormState</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 验证格式</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">validatePassword</span>(<span class="params">state: FormState</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">validateConfirmPassword</span>(<span class="params">state: FormState</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">validateCode</span>(<span class="params">state: FormState</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">validateAccount</span>(<span class="params">state: FormState</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Form = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [formState, setFormState] = useState&lt;Record&lt;FormValidateType, string&gt;&gt;(&#123;</span><br><span class="line">    <span class="attr">phone</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="attr">password</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="attr">code</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="attr">confirmPassword</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="attr">account</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="attr">accountType</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">const</span> accountTypes = [<span class="string">&#x27;personal&#x27;</span>, <span class="string">&#x27;enterprise&#x27;</span>]</span><br><span class="line">  <span class="keyword">const</span> onStateChange = useCallback(<span class="function">(<span class="params">type: FormValidateType, value: string</span>) =&gt;</span> &#123;</span><br><span class="line">    setFormState(<span class="function">(<span class="params">state</span>) =&gt;</span> (&#123;</span><br><span class="line">      ...state,</span><br><span class="line">      [type]: value,</span><br><span class="line">    &#125;))</span><br><span class="line">  &#125;, [])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> onBlur = useCallback(</span><br><span class="line">    <span class="function">(<span class="params">type: FormValidateType</span>) =&gt;</span> &#123;</span><br><span class="line">      validateForm(type, formState)</span><br><span class="line">    &#125;,</span><br><span class="line">    [formState],</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> onConfirm = useCallback(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// validateForm</span></span><br><span class="line">    <span class="comment">// 提交数据</span></span><br><span class="line">    <span class="comment">// post(formState)</span></span><br><span class="line">  &#125;, [formState])</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;form&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;form-item&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>电话： <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">placeholder</span>=<span class="string">&#123;</span>&#x27;请输入电话号码&#x27;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">value</span>=<span class="string">&#123;formState.phone&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          // 传递箭头函数是会有性能问题的， 这里暂时不展开了</span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span></span></span><br><span class="line"><span class="xml">            onStateChange(FormValidateType.phone, e.target.value)</span></span><br><span class="line"><span class="xml">          &#125;</span></span><br><span class="line"><span class="xml">          onBlur=&#123;(e) =&gt; onBlur(FormValidateType.phone)&#125;</span></span><br><span class="line"><span class="xml">          type=&quot;text&quot;</span></span><br><span class="line"><span class="xml">        /&gt;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>获取验证码<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;form-item&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>验证码： <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> onStateChange(FormValidateType.code, e.target.value)&#125;</span></span><br><span class="line"><span class="xml">          onBlur=&#123;(e) =&gt; onBlur(FormValidateType.code)&#125;</span></span><br><span class="line"><span class="xml">          value=&#123;formState.code&#125;</span></span><br><span class="line"><span class="xml">          type=&quot;text&quot;</span></span><br><span class="line"><span class="xml">        /&gt;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;form-item&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>账户类型：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">select</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span></span></span><br><span class="line"><span class="xml">            onStateChange(FormValidateType.accountType, e.target.value)</span></span><br><span class="line"><span class="xml">          &#125;</span></span><br><span class="line"><span class="xml">          onBlur=&#123;(e) =&gt; onBlur(FormValidateType.accountType)&#125;</span></span><br><span class="line"><span class="xml">          value=&#123;&#x27;personal&#x27;&#125;</span></span><br><span class="line"><span class="xml">        &gt;</span></span><br><span class="line"><span class="xml">          &#123;accountTypes.map((type) =&gt; (</span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#123;type&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="xml">          ))&#125;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;form-item&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>密码：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span></span></span><br><span class="line"><span class="xml">            onStateChange(FormValidateType.password, e.target.value)</span></span><br><span class="line"><span class="xml">          &#125;</span></span><br><span class="line"><span class="xml">          onBlur=&#123;(e) =&gt; onBlur(FormValidateType.password)&#125;</span></span><br><span class="line"><span class="xml">          placeholder=&#123;&#x27;请输入密码&#x27;&#125;</span></span><br><span class="line"><span class="xml">          value=&#123;formState.password&#125;</span></span><br><span class="line"><span class="xml">          type=&quot;password&quot;</span></span><br><span class="line"><span class="xml">        /&gt;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;form-item&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>重复密码：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">          <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span></span></span><br><span class="line"><span class="xml">            onStateChange(FormValidateType.confirmPassword, e.target.value)</span></span><br><span class="line"><span class="xml">          &#125;</span></span><br><span class="line"><span class="xml">          placeholder=&#123;&#x27;请输入再次输入密码&#x27;&#125;</span></span><br><span class="line"><span class="xml">          value=&#123;formState.confirmPassword&#125;</span></span><br><span class="line"><span class="xml">          type=&quot;password&quot;</span></span><br><span class="line"><span class="xml">        /&gt;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;onConfirm&#125;</span>&gt;</span>确认<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="z"><a href="#z" class="headerlink" title="z"></a>z</h2>
+<h2 id="z"><a href="#z" class="headerlink" title="z"></a>z</h2></div>
+    <hr>
+    <div class="tags"></div>
+</div>
+<div class="paging">
+    
+    
+        <a id="prev" href="/2022/04/01/slot/">上一篇</a>
+    
+    
+        <a id="next" href="/2021/08/23/MonteCarlomethod/">下一篇</a>
+    
+</div>
+<div class="footer">
+    <p><a href="/about/">轉載前請聯繫作者</a></p>
+</div>
+
+<script src="/js/highlight.pack.js"></script>
+
+</script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="/js/iconfont.js"></script>
+
+<style>
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+</style>
+    
     </div>
-</article>
-        </main>
-        <aside class="aside">
-            <div class="close"></div>
-            <section class="aside-section">
-                
-    <h1>分类</h1>
+    <div class='rights'>
+	<p>©<span id='years'></span> Mint Forge. All Rights Reserved.</p>
+</div>
+<script type="text/javascript">
+	var today = new Date()
+	var years = today.getFullYear()
+	document.getElementById('years').innerHTML=years
+</script>
+    
+<script src="/js/iconfont.js"></script>
 
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Vue-javascript/">Vue javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/broswer/">broswer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/code/">code</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/node/">node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/react-javascript/">react javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
-
-            </section>
-            <section class="aside-section">
-                
-    <h1>归档</h1>
-
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
-
-
-            </section>
-            <section class="aside-section tag">
-                
-    <h1>标签</h1>
-
-    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-slot/" rel="tag">Vue slot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lazyload/" rel="tag">lazyload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lodash-debounce/" rel="tag">lodash debounce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/queue/" rel="tag">queue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react-%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag">react 组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this%E6%8C%87%E9%92%88/" rel="tag">this指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url/" rel="tag">url</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" rel="tag">事件循环</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0-%E6%9F%AF%E9%87%8C%E5%8C%96/" rel="tag">函数 柯里化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%96%E6%8B%BD%E4%B8%8A%E4%BC%A0-dragevent/" rel="tag">拖拽上传 dragevent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%B7%E8%B4%9D/" rel="tag">拷贝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2-Actions/" rel="tag">自动部署 Actions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" rel="tag">评论系统</a></li></ul>
-
-            </section>
-        </aside>
-    </div>
+<style>
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+</style>
+    
 </body>
-
 </html>
